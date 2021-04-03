@@ -25,6 +25,14 @@ public class UniqTest {
                 IllegalArgumentException.class,
                 () -> UniqLauncher.main(new String[]{"-s", "6", "input.txt"})
         );
+        Assert.assertThrows(
+                IllegalArgumentException.class,
+                () -> UniqLauncher.main(new String[]{"-i", "file.txt"})
+        );
+        Assert.assertThrows(
+                IllegalArgumentException.class,
+                () -> UniqLauncher.main(new String[]{"-c", "-o", "file.txt", "input.txt"})
+        );
         System.setOut(new PrintStream(output));
         UniqLauncher.main(new String[]{"-i", "-s", "1", "-c", "input.txt"});
         String expect = "3 aAa\r\n1 bBB\r\n2 fFF\r\n3 DdD\r\n";

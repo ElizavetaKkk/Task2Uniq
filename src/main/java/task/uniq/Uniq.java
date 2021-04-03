@@ -1,7 +1,6 @@
 package task.uniq;
 
 import java.io.*;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -25,7 +24,9 @@ public class Uniq {
         if (inputName == null) {
             in = new Scanner(System.in);
         } else {
-            in = new Scanner(Paths.get(inputName));
+            File input = new File(inputName);
+            if (!input.isFile()) throw new IllegalArgumentException("Error in file name");
+            in = new Scanner(input);
         }
         String line = in.nextLine();
         while (!line.isEmpty()) {
@@ -42,6 +43,7 @@ public class Uniq {
                 System.out.println(outputDatum);
             }
         } else {
+            if (!new File(outputName).isFile()) throw new IllegalArgumentException("Error in file name");
             FileWriter fw = new FileWriter(outputName, false);
             for (int i = 0; i < outputData.size() - 1; i++) {
                 fw.write(outputData.get(i) + System.lineSeparator());
